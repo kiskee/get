@@ -15,3 +15,10 @@ export async function GET() {
     const users = await User.find();
     return NextResponse.json({ users });
   }
+
+  export async function DELETE(request) {
+    const id = request.nextUrl.searchParams.get("id");
+    await connectMongoDB();
+    await Topic.findByIdAndDelete(id);
+    return NextResponse.json({ message: "Topic deleted" }, { status: 200 });
+  }
